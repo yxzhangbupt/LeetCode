@@ -5,8 +5,6 @@ import java.util.Scanner;
 public class bitCount {
 	public static void main(String args[])
 	{
-		bitCount b = new bitCount();
-		b.input();
 	}
 	public void input()
 	{
