@@ -13,34 +13,67 @@ public class Convert2X2DoubleList {
 	    }
 
 	}
+//	public static TreeNode Convert(TreeNode pRootOfTree) {
+//		if(pRootOfTree==null)
+//            return null;
+//        if(pRootOfTree.left ==null&&pRootOfTree.right==null){
+//            return pRootOfTree;
+//        }
+//        
+//        TreeNode left = Convert(pRootOfTree.left);
+//        TreeNode p = left;
+//        while(p!=null&&p.right!=null){
+//            p = p.right;
+//        }
+//        
+//        if(p!=null){
+//            p.right = pRootOfTree;
+//           	pRootOfTree.left = p;
+//        }
+//        
+//        TreeNode right = Convert(pRootOfTree.right);
+//        
+//        if(right!=null){
+//            right.left = pRootOfTree;
+//           	pRootOfTree.right = right;
+//        }
+//        
+//        return left!=null?left:pRootOfTree;
+//    }
 	public static TreeNode Convert(TreeNode pRootOfTree) {
-		if(pRootOfTree==null)
-            return null;
-        if(pRootOfTree.left ==null&&pRootOfTree.right==null){
-            return pRootOfTree;
+        TreeNode lastNodeInList=null;
+        lastNodeInList = Convert(pRootOfTree,lastNodeInList);
+        
+        TreeNode headNodeinList = lastNodeInList;
+        while(headNodeinList!=null&&headNodeinList.left!=null){
+            headNodeinList = headNodeinList.left;
         }
         
-        TreeNode left = Convert(pRootOfTree.left);
-        TreeNode p = left;
-        while(p!=null&&p.right!=null){
-            p = p.right;
-        }
-        
-        if(p!=null){
-            p.right = pRootOfTree;
-           	pRootOfTree.left = p;
-        }
-        
-        TreeNode right = Convert(pRootOfTree.right);
-        
-        if(right!=null){
-            right.left = pRootOfTree;
-           	pRootOfTree.right = right;
-        }
-        
-        return left!=null?left:pRootOfTree;
+        return headNodeinList;
     }
-	
+    
+    private static TreeNode Convert(TreeNode root,TreeNode lastNodeInList){
+        if(root==null)
+            return lastNodeInList;
+        
+        TreeNode currentNode = root;
+        
+        if(currentNode.left!=null){
+            lastNodeInList = Convert(currentNode.left,lastNodeInList);
+        }
+        
+        currentNode.left = lastNodeInList;
+        if(lastNodeInList!=null)
+            lastNodeInList.right = currentNode;
+        
+        lastNodeInList = currentNode;
+        
+        if(currentNode.right!=null){
+            lastNodeInList = Convert(currentNode.right,lastNodeInList);
+        }
+        
+        return lastNodeInList;
+    }
 
     
     public static void main(String[] args) {
